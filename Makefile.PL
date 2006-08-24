@@ -9,11 +9,15 @@ my $opt = {};
 GetOptions($opt, 'growlhelperapp=s');
 
 my $REQUIRED = '0.6.0';
+my $GHA;
 
-my($GHA) = grep { -e } (
-	$opt->{growlhelperapp} || '',
-	'/Library/PreferencePanes/Growl.prefPane/Contents/Resources/GrowlHelperApp.app'
-);
+if ($opt->{growlhelperapp}) {
+	$GHA = $opt->{growlhelperapp};
+} elsif (-e '/Library/PreferencePanes/Growl.prefPane/Contents/Resources/GrowlHelperApp.app') {
+	$GHA = '/Library/PreferencePanes/Growl.prefPane/Contents/Resources/GrowlHelperApp.app';
+} else {
+	$GHA = "$ENV{HOME}/Library/PreferencePanes/Growl.prefPane/Contents/Resources/GrowlHelperApp.app";
+}
 
 my $goodversion = checkversion();
 warn "... but we will attempt to install anyway.\n" unless $goodversion;
