@@ -3,7 +3,7 @@ package Mac::Growl;
 use strict;
 use warnings;
 
-our $VERSION = '0.67';
+our $VERSION = '0.68';
 
 use base 'Exporter';
 our @EXPORT = qw();
@@ -51,7 +51,7 @@ sub _Define_Subs {
 
 sub BEGIN {
 	$encode = eval { require Encode; };
-	$helper = 'GrowlHelperApp';
+	$helper = 'Growl';
 
 	if (!$base || $base eq 'Foundation') {
 		eval 'require Foundation';
